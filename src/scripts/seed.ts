@@ -31,7 +31,7 @@ async function seed() {
 
   // Crear recursos
   console.log("📦 Creando recursos...");
-  const [resource1, resource2, resource3] = await db
+  const [resource1, resource2] = await db
     .insert(resources)
     .values([
       {
@@ -45,12 +45,6 @@ async function seed() {
         title: "Servidor de Desarrollo",
         description: "Acceso a servidor con herramientas de desarrollo y testing",
         image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=400&fit=crop",
-      },
-      {
-        ownerId: community1.id,
-        title: "Bicicletas Compartidas",
-        description: "Sistema de bicicletas para transporte sostenible",
-        image: "https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=600&h=400&fit=crop",
       },
     ])
     .returning();
@@ -86,7 +80,7 @@ async function seed() {
   console.log("✅ Seed completado exitosamente!");
   console.log(`📊 Datos creados:
   - ${2} comunidades
-  - ${3} recursos  
+  - ${2} recursos  
   - ${1} oferta
   - ${2} mensajes`);
 

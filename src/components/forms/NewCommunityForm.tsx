@@ -37,15 +37,15 @@ export default function NewCommunityForm({ onSuccess }: NewCommunityFormProps) {
 
       setFormData({ name: "", description: "", avatar: "" });
       onSuccess();
-    } catch (error: any) {
-      if (error.errors) {
+    } catch (error: unknown) {
+      if (error && typeof error === 'object' && 'errors' in error) {
         const newErrors: Record<string, string> = {};
-        error.errors.forEach((err: any) => {
+        (error.errors as { path: string[]; message: string }[]).forEach((err) => {
           newErrors[err.path[0]] = err.message;
         });
         setErrors(newErrors);
       } else {
-        setErrors({ general: error.message });
+        setErrors({ general: error instanceof Error ? error.message : 'Error desconocido' });
       }
     } finally {
       setIsSubmitting(false);
