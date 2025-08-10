@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { createCommunitySchema } from "@/lib/validators";
+import { Zap } from "lucide-react";
 
 interface NewCommunityFormProps {
   onSuccess: () => void;
@@ -53,59 +54,71 @@ export default function NewCommunityForm({ onSuccess }: NewCommunityFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label className="block text-sm font-medium font-['Orbitron'] text-white/90 mb-3">
           Nombre de la comunidad
         </label>
         <input
           type="text"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+          className="input-futuristic"
           placeholder="Nombre de tu comunidad"
         />
-        {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+        {errors.name && <p className="text-red-400 text-xs mt-2 font-medium">{errors.name}</p>}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label className="block text-sm font-medium font-['Orbitron'] text-white/90 mb-3">
           Descripción
         </label>
         <textarea
           value={formData.description}
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           rows={3}
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+          className="input-futuristic resize-none"
           placeholder="Describe tu comunidad..."
         />
-        {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description}</p>}
+        {errors.description && <p className="text-red-400 text-xs mt-2 font-medium">{errors.description}</p>}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <label className="block text-sm font-medium font-['Orbitron'] text-white/90 mb-3">
           Avatar (opcional)
         </label>
         <input
           type="url"
           value={formData.avatar}
           onChange={(e) => setFormData({ ...formData, avatar: e.target.value })}
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+          className="input-futuristic"
           placeholder="https://ejemplo.com/avatar.jpg"
         />
-        {errors.avatar && <p className="text-red-500 text-xs mt-1">{errors.avatar}</p>}
+        {errors.avatar && <p className="text-red-400 text-xs mt-2 font-medium">{errors.avatar}</p>}
       </div>
 
       {errors.general && (
-        <p className="text-red-500 text-sm">{errors.general}</p>
+        <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30">
+          <p className="text-red-400 text-sm font-medium">{errors.general}</p>
+        </div>
       )}
 
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-2 px-4 rounded-xl hover:from-purple-700 hover:to-blue-700 transition-colors disabled:opacity-50"
+        className="btn-primary w-full inline-flex items-center justify-center space-x-2 font-['Orbitron'] font-medium"
       >
-        {isSubmitting ? "Creando..." : "Crear Comunidad"}
+        {isSubmitting ? (
+          <>
+            <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin"></div>
+            <span>Creando...</span>
+          </>
+        ) : (
+          <>
+            <Zap className="w-5 h-5" />
+            <span>Crear Comunidad</span>
+          </>
+        )}
       </button>
     </form>
   );
